@@ -1,0 +1,9 @@
+<div>
+  {% if page.get_parent_for_navigation %}
+    <a href="{{ base_url }}{{ page.get_parent_for_navigation.get_absolute_url }}">{{page.get_parent_for_navigation.title }}</a>&nbsp;&lt;&nbsp;
+  {% endif %}
+  {{page.title}}
+  {% for child_page in page.get_children_for_navigation %}
+    {% if forloop.first %}&nbsp;&gt;&nbsp;{% else %}&nbsp;|&nbsp;{% endif %}<a href="{{ base_url }}{{ child_page.get_absolute_url }}">{{child_page.title}}</a>
+  {% endfor %}
+</div>

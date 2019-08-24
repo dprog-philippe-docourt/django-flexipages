@@ -1,0 +1,4 @@
+<form method="post" id="search_form_id" action="{{ search_url }}">{% csrf_token %}
+    {% block search_form_fields %}{{ search_form }}{% endblock %}
+    {% block search_form_button%}<button class="search-contents-button" type="submit">&#128269;</button>{% endblock %}
+</form>

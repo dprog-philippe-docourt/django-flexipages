@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    {% block description %}<meta name="description" content="{{ page.description }}" />{% endblock %}
+    {% block keywords %}<meta name="keywords" content="{{ page.tags.all|join:', ' }}" />{% endblock %}
+    <title>{% block title %}{{ page.title }}{% endblock %}</title>
+    {% block extra_html_head %}{% endblock %}
+    <style>
+        {% block extra_inline_css %}
+            #page_id {
+                padding: 10px 50px;
+            }
+            .rounded-grey-background {
+                padding-left: 10px;
+                padding-right: 10px;
+                border-radius: 3px;
+                background-color: lightblue;
+            }
+            .flex-container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                padding: 0.5em 0;
+            }
+            .flex-container > div {
+                width: fit-content;
+            }
+            .search-contents-button {
+                border: none;
+                background: none;
+                cursor: pointer;
+                width: fit-content;
+            }
+            .search-contents-field {
+                border-radius: 3px;
+                padding: 2px 5px;
+                border-style: none;
+            }
+            #search_form_id > label {
+                display: none;
+                width: 0px;
+            }
+        {% endblock %}
+    </style>
+</head>
+<body>
+{% block page_container %}
+    <div id="page_id">
+        {% block header %}
+            <h1>FlexiPages</h1>
+        {% endblock %}
+        <div class="flex-container rounded-grey-background">
+            <div>
+                {% block breadcrumbs_menu %}
+                    {% include 'flexipages/menus/breadcrumbs.html' %}
+                {% endblock %}
+            </div>
+            <div>
+                {% block tags_related_to_page_menu %}
+                    {% include 'flexipages/components/tags_related_to_page.html' %}
+                {% endblock %}
+            </div>
+            <div>
+                {% block search_form %}
+                    {% include 'flexipages/components/search_form.html' %}
+                {% endblock %}
+            </div>
+        </div>
+        {% block content %}
+            {% for item in all_items %}
+                <div class="item-with-tags">
+                    <div>{{ item.render }}</div>
+                    <div>Tags: {% include 'flexipages/components/item_tags.html' %}</div>
+                </div>
+            {% endfor %}
+        {% endblock %}
+        {% block footer %}
+        {% endblock %}
+    </div>
+{% endblock %}
+</body>
+</html>

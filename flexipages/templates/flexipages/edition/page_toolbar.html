@@ -1,0 +1,66 @@
+{% spaceless %}
+{% load i18n %}
+<form id="add_item_form" method="post" action="{% url 'flexipages:add_page_item' page_pk=page.pk %}">{% csrf_token %}</form>
+<div style="height: 60px;"></div>
+<div class="ui fluid menu" style="position: fixed;bottom: 0;left: 0; margin: 0;z-index: 999">
+    <div class="ui item" id="latest_page_update">
+        <a class="ui mini green icon button" title="{% trans "Reload this page to get the latest edited contents" %}" href="{{ request.path }}?{{ IS_EDITING_ATTRIBUTE_NAME }}=1"><i class="ui sync alternate icon"></i></a>
+    </div>
+    <div class="ui header item">
+        {{ page.title }}
+    </div>
+    <div class="ui item">
+        {% trans "Created:" %} {{ page.created }}, {% trans "updated:" %} {{ page.last_updated }}
+    </div>
+    <div class="right menu">
+    {% if edition_context.is_editing %}
+        {% if edition_context.can_edit_item %}
+            <a class="ui item" onclick="document.getElementById('add_item_form').submit();return false;" target="_blank" title="{% trans "Add new item to this page" %}"><i class="ui plus icon"></i></a>
+        {% endif %}
+        {% if edition_context.can_edit_page %}
+            <a href="{% url 'admin:flexipages_page_change' page.pk %}" title="{% trans "Edit this page..." %}" target="_blank" class="ui item" onclick="openUrlInPopup(this.href);return false;"><i class="ui edit icon"></i></a>
+        {% endif %}
+        {% if edition_context.can_edit_template %}
+            <a href="{% url 'admin:flexipages_pagetemplate_change' page.template.pk %}" title="{% trans "Edit template of this page..." %}" target="_blank" class="ui item" onclick="openUrlInPopup(this.href);return false;"><i class="ui object group outline icon"></i></a>
+        {% endif %}
+        {% if edition_context.can_edit_page %}
+            <a href="{% url 'admin:flexipages_page_delete' page.pk %}" title="{% trans "Delete this page..." %}" target="_blank" class="ui item"><i class="ui delete icon" onclick="openUrlInPopup(this.href);return false;"></i></a>
+        {% endif %}
+        {% if edition_context.can_edit_page %}
+            <a href="{% url 'admin:flexipages_page_add' %}" title="{% trans "Add a new page..." %}" target="_blank" class="ui item"><i class="ui file alternate outline icon" onclick="openUrlInPopup(this.href);return false;"></i></a>
+        {% endif %}
+        <a href="{% url 'admin:app_list' 'flexipages' %}" title="{% trans "Go to FlexiPages admin" %}" target="_blank" class="ui item"><i class="ui settings icon"></i></a>
+        <a href="{{ request.path }}" title="{% trans "Deactivate editing mode" %}" target="_blank" class="ui item"><i class="ui sign-out icon"></i></a>
+    {% else %}
+        <link rel="stylesheet" href="{{ SEMANTIC_UI_CSS_URL }}">
+        <a href="{{ request.path }}?{{ IS_EDITING_ATTRIBUTE_NAME }}=1" title="{% trans "Activate editing mode" %}" target="_self" class="ui item"><i class="ui sign-in icon"></i></a>
+    {% endif %}
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    let lastUpdatedTimestamp = null;
+    const timerId = setInterval(updateLastPageUpdate, 2000);
+    $('#latest_page_update').hide();
+    function updateLastPageUpdate() {
+        $.ajax({
+            url: '{% url 'flexipages:ajax_get_last_page_update' %}',
+            data: {
+                'page_pk': {{ page.pk }}
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (lastUpdatedTimestamp === null) {
+                    lastUpdatedTimestamp = data.last_updated_timestamp
+                } else {
+                    if (lastUpdatedTimestamp < data.last_updated_timestamp) {
+                        lastUpdatedTimestamp = data.last_updated_timestamp;
+                        clearInterval(timerId);
+                        $('#latest_page_update').show();
+                    }
+                }
+            }
+        });
+    }
+</script>
+{% endspaceless %}

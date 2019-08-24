@@ -1,0 +1,42 @@
+{% spaceless %}
+{% load i18n %}
+{# Add padding so that the item is kind of centered on the page. This is super useful in case of fixed header/menu on top of the page. #}
+<a id="item_edit_{{ item.pk|safe }}" style="position: relative;padding-top: 150px"></a>
+<form id="item_toolbar_form_{{ item.pk }}"></form>
+<div class="ui top attached mini borderless menu">
+    {% if item.previous_item %}
+        <div class="ui item">
+            <button formmethod="post" form="item_toolbar_form_{{ item.pk|safe }}"
+                    formaction="{% url 'flexipages:swap_item_positions' first_item_pk=item.pk second_item_pk=item.previous_item.pk page_pk=item.page.pk %}"
+                    title="{% trans "Move this item up" %}"
+                    type="submit" class="ui basic mini icon button"><i class="ui arrow up icon"></i></button>
+        </div>
+    {% endif %}
+    {% if item.next_item %}
+        <div class="ui item">
+            <button formmethod="post" form="item_toolbar_form_{{ item.pk|safe }}"
+                    formaction="{% url 'flexipages:swap_item_positions' first_item_pk=item.pk second_item_pk=item.next_item.pk page_pk=item.page.pk %}"
+                    title="{% trans "Move this item down" %}"
+                    type="submit" class="ui basic mini icon button"><i class="ui arrow down icon"></i></button>
+        </div>
+    {% endif %}
+    <div class="ui item">
+        <a href="{% url 'admin:flexipages_pageitem_change' item.pk %}" title="{% trans "Edit this item..." %}" target="_blank" class="ui basic mini icon button" onclick="openUrlInPopup(this.href);return false;"><i class="ui edit icon"></i></a>
+    </div>
+    <div class="ui item">
+        <a href="{% url 'admin:flexipages_pageitemlayout_change' item.pk %}" title="{% trans "Edit layout for this item..." %}" target="_blank" class="ui basic mini icon button" onclick="openUrlInPopup(this.href);return false;"><i class="ui arrows alternate icon"></i></a>
+    </div>
+    <div class="ui item">
+        <a href="{% url 'admin:flexipages_pageitem_delete' item.pk %}" title="{% trans "Delete this item..." %}" target="_blank" class="ui basic mini icon button" onclick="openUrlInPopup(this.href);return false;"><i class="ui delete icon"></i></a>
+    </div>
+    <div class="right menu">
+        <div class="ui item">{% trans "Layout:" %} {{ item.layout.zone_name|default:"n/a" }}, {{ item.layout.order|default:"n/a" }} ({{ item.item_index }}/{{ item.item_count }})</div>
+        <div class="ui item">{% trans "Published:" %} {% trans "from" context "from date" %} {{ item.publishing_start_date|default:"n/a" }} {% trans "to" context "to date" %} {{ item.publishing_end_date|default:"n/a" }}</div>
+        <div class="ui item">{% trans "Author:" %} {{ item.author|default:"n/a" }}, {{ item.created }}</div>
+        <div class="ui item">{% trans "Last edited:" %} {{ item.last_edited_by|default:"n/a" }}, {{ item.last_updated }}</div>
+    </div>
+</div>
+<div class="ui bottom attached {% if item.is_not_published_yet %}yellow {% elif item.is_no_longer_published %}red {% endif %}segment">
+    {{ rendered_content }}
+</div>
+{% endspaceless %}

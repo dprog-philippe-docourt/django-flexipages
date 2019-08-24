@@ -1,0 +1,4 @@
+{% load flexipages %}
+{% for tag in tags_related_to_page %}
+{% if forloop.first %}{{ tag_filter_reset_link }}{% endif %}&nbsp;|&nbsp;{% if active_tag_filter == tag.name %}{{ tag.name }}{% else %}<a href="{% tag_filter_link tag %}" class="tag-filter-link">{{ tag.name }}</a>{% endif %}
+{% endfor %}

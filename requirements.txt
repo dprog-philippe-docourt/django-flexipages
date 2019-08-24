@@ -1,0 +1,15 @@
+# Django and dependencies
+Django>=2.1
+
+# Django apps and dependencies
+django-string-renderer==0.1.2
+django-ckeditor==5.7.1
+django-codemirror==0.1.1
+rules==2.0.1
+whitenoise==4.1.3
+ua-parser==0.8.0
+user-agents==2.0
+django-user-agents==0.4.0
+django-dbtemplates==3.0
+whitenoise==4.1.3
+brotli==1.0.7

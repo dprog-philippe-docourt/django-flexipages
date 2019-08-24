@@ -1,0 +1,544 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-24 17:51+0200\n"
+"PO-Revision-Date: 2019-08-24 17:51+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: admin.py:55
+msgid "Advanced"
+msgstr "Avancé"
+
+#: admin.py:59 admin.py:101
+msgid "Modifications"
+msgstr "Modifications"
+
+#: admin.py:91
+msgid "Rendering and interpretation"
+msgstr "Rendu et interprétation"
+
+#: admin.py:94
+msgid "Publishing"
+msgstr "Publication"
+
+#: admin.py:97
+msgid "Optional"
+msgstr "Optionnel"
+
+#: forms.py:8
+msgid "Search"
+msgstr "Chercher"
+
+#: forms.py:8
+msgid "Search..."
+msgstr "Chercher..."
+
+#: models.py:22
+msgid "no caching"
+msgstr "aucune mise en cache"
+
+#: models.py:23
+msgid "1 minute"
+msgstr "1 minute"
+
+#: models.py:24
+msgid "5 minutes"
+msgstr "5 minutes"
+
+#: models.py:25
+msgid "15 minutes"
+msgstr "15 minutes"
+
+#: models.py:26
+msgid "30 minutes"
+msgstr "30 minutes"
+
+#: models.py:27
+msgid "1 hour"
+msgstr "1 heure"
+
+#: models.py:28
+msgid "3 hours"
+msgstr "3 heures"
+
+#: models.py:29
+msgid "6 hours"
+msgstr "6 heures"
+
+#: models.py:30
+msgid "12 hours"
+msgstr "12 heures"
+
+#: models.py:31
+msgid "1 day"
+msgstr "1 jour"
+
+#: models.py:32
+msgid "3 days"
+msgstr "3 jours"
+
+#: models.py:33
+msgid "1 week"
+msgstr "une semaine"
+
+#: models.py:34
+msgid "2 weeks"
+msgstr "2 semaines"
+
+#: models.py:35
+msgid "1 month"
+msgstr "un mois"
+
+#: models.py:40
+msgid "page template"
+msgstr "gabarit de page"
+
+#: models.py:41
+msgid "page templates"
+msgstr "gabarits de page"
+
+#: models.py:49
+msgid "The given template is not valid."
+msgstr "Le modèle est invalide."
+
+#: models.py:51
+msgid "Please correct the syntax of this template."
+msgstr "Veuillez corriger la syntaxe de ce gabarit."
+
+#: models.py:77
+msgid "path"
+msgstr "chemin"
+
+#: models.py:77
+msgid "The path of the URL to access this page."
+msgstr "Le chemin de l'URL pour accéder à cette page."
+
+#: models.py:78 models.py:217
+msgid "title"
+msgstr "titre"
+
+#: models.py:79
+msgid "template"
+msgstr "gabarit"
+
+#: models.py:79
+msgid "The template used to render the page."
+msgstr "Le gabarit utilisé pour le rendu de cette page."
+
+#: models.py:80
+msgid "sites"
+msgstr "sites"
+
+#: models.py:80
+msgid "The sites on which the URL of this page must be available."
+msgstr "Les sites sur lesquels cette page doit est disponibles."
+
+#: models.py:81
+msgid "registration required"
+msgstr "connexion requise"
+
+#: models.py:81
+msgid "If this is checked, only logged-in users will be able to view the page."
+msgstr ""
+"Si c'est options est active, seuls les utilisateurs connectés pourront "
+"visualiser la page."
+
+#: models.py:82
+msgid "page cache timeout"
+msgstr "durée de mise en cache de la page"
+
+#: models.py:82
+msgid "Indicates for how long the page is cached on the server side."
+msgstr ""
+"Indique pour combien de temps la page est conservée en cache du côté du "
+"serveur."
+
+#: models.py:83
+msgid "enable client side caching"
+msgstr "activer la mise en cache côté client"
+
+#: models.py:83
+msgid ""
+"Tells whether the client's browser is allowed to keep this page in cache. "
+"When enabled, the user needs to fully refresh the page in his web browser "
+"for obtaining the latest version."
+msgstr ""
+"Indique si le navigateur du client est autorisé à conserver cette page en "
+"cache. Lorsque l'option est activée, l'utilisateur doit actualiser "
+"complètement la page de son navigateur Web pour obtenir la dernière version."
+
+#: models.py:84 models.py:298
+msgid "priority"
+msgstr "priorité"
+
+#: models.py:84
+msgid ""
+"The page priority for navigation. Lowest priority comes first. A blank field "
+"means that the page should not appears in navigation bars."
+msgstr ""
+"La priorité de la page pour la navigation. La priorité la plus basse vient "
+"en premier. Un champ vide signifie que la page ne doit pas apparaître dans "
+"les barres de navigation."
+
+#: models.py:85
+msgid "parent"
+msgstr "parent"
+
+#: models.py:86
+msgid "level"
+msgstr "niveau"
+
+#: models.py:164
+msgid "Unrecognized timeout duration."
+msgstr "Durée de mis en cache non reconnue."
+
+#: models.py:167 models.py:297
+msgid "page"
+msgstr "page"
+
+#: models.py:168
+msgid "pages"
+msgstr "pages"
+
+#: models.py:179
+msgid "name"
+msgstr "nom"
+
+#: models.py:185
+msgid "tag"
+msgstr "étiquette"
+
+#: models.py:186 models.py:218
+msgid "tags"
+msgstr "étiquettes"
+
+#: models.py:215
+msgid "content"
+msgstr "contenu"
+
+#: models.py:215
+msgid "The content of this item."
+msgstr "Ajouter un nouvel élément à cette page"
+
+#: models.py:216
+msgid "description"
+msgstr "description"
+
+#: models.py:216
+msgid "Short description of this content"
+msgstr "Description courte de ce contenu"
+
+#: models.py:217
+msgid "An optional title for this content."
+msgstr "Un titre optionnel pour ce contenu."
+
+#: models.py:219
+msgid "publishing start date"
+msgstr "date de début de la publication"
+
+#: models.py:219
+msgid ""
+"Indicates when this item must be published. A blank field means that this "
+"content is unpublished and therefore not displayed anywhere."
+msgstr ""
+"Indique quand ce contenu doit être publié. Un champ vide signifie que ce "
+"contenu n'est pas publié et n'est donc affiché nulle part."
+
+#: models.py:220
+msgid "publishing end date"
+msgstr "fin de la publication"
+
+#: models.py:220
+msgid ""
+"Indicates when the publication of this content should be over. A blank field "
+"means that this content will by available forever."
+msgstr ""
+"Indique quand la publication de ce contenu devrait s'arrêter. Un champ vide "
+"signifie que ce contenu sera toujours disponible."
+
+#: models.py:221
+msgid "render content as template"
+msgstr "rendre le contenu en tant que gabarit"
+
+#: models.py:221
+msgid ""
+"Indicates whether the content is interpreted and rendered as a Django "
+"template. The content is interpreted as raw HTML when disabled."
+msgstr ""
+"Indique si le contenu est interprété et rendu en tant que gabarit Django. Le "
+"contenu est interprété comme du HTML brut lorsque l'option est désactivée."
+
+#: models.py:222
+msgid "use WYSIWYG editor"
+msgstr "utiliser l'éditeur WYSIWYG"
+
+#: models.py:222
+msgid ""
+"Indicates whether the content should be rendered with a WYSIWYG editor for "
+"HTML."
+msgstr ""
+"Indique si le contenu doit être rendu avec un éditeur WYSIWYG pour HTML."
+
+#: models.py:223
+msgid "author"
+msgstr "auteur"
+
+#: models.py:223
+msgid "The author of this item."
+msgstr "L'auteur de cet élément."
+
+#: models.py:224
+msgid "last edited by"
+msgstr "dernière édition par"
+
+#: models.py:224
+msgid "The edited items of the author."
+msgstr "Les éléments édités par l'auteur."
+
+#: models.py:237
+msgid "The given content cannot be interpreted and rendered as a template."
+msgstr ""
+"Le contenu donné ne peut pas être interprété et rendu comme un gabarit."
+
+#: models.py:239
+msgid ""
+"Please correct the syntax or deactivate the option for rendering the content "
+"as a template."
+msgstr ""
+"Veuillez corriger la syntaxe ou désactiver l'option permettant de rendre le "
+"contenu sous forme de gabarit."
+
+#: models.py:291
+msgid "page item"
+msgstr "élément de page"
+
+#: models.py:292
+msgid "page items"
+msgstr "éléments de page"
+
+#: models.py:296
+msgid "item"
+msgstr "élément"
+
+#: models.py:296
+msgid "The item that we want to locate on the given page."
+msgstr "L'élément que nous voulons localiser sur la page donnée"
+
+#: models.py:297
+msgid "The page where the item must be displayed."
+msgstr "La page où l'élément doit être affiché."
+
+#: models.py:298
+msgid ""
+"The priority for the selected item on the given page, and the given zone if "
+"defined. Lowest priority comes first. An empty field implies that items are "
+"sorted by reversed chronological order of items creation."
+msgstr ""
+"La priorité pour l'élément sélectionné sur la page donnée et la zone donnée "
+"si elle est définie. La priorité la plus basse vient en premier. Un champ "
+"vide implique que l'élément est trié par ordre anti-chronologique de "
+"création des éléments."
+
+#: models.py:299
+msgid "zone name"
+msgstr "nom de zone"
+
+#: models.py:299
+msgid "The name of the page area that this item belongs to."
+msgstr "Le nom de la zone de page à laquelle cet élément appartient."
+
+#: models.py:312
+msgid "page item layout"
+msgstr "mise en page d'élément"
+
+#: models.py:313
+msgid "page item layouts"
+msgstr "mises en page d'éléments"
+
+#: models.py:321
+msgid "The path prefix must start with a '/'."
+msgstr "Le préfixe de chemin doit démarrer avec un '/'."
+
+#: models.py:323
+msgid "The path prefix must not end with a '/'."
+msgstr "Le préfixe de chemin ne doit pas être terminé par un '/'."
+
+#: models.py:327
+msgid "site"
+msgstr "site"
+
+#: models.py:327
+msgid "The site to configure."
+msgstr "Le site à configurer."
+
+#: models.py:328
+msgid "path prefix"
+msgstr "préfixe de chemin"
+
+#: models.py:328
+msgid ""
+"The default path prefix for serving the pages. All pages will be served "
+"relative to this prefix. For instance a page with path '/home' will be "
+"served under '/cms/home' if the prefix is set to '/cms."
+msgstr ""
+"Le préfixe de chemin par défaut pour servir les pages. Toutes les pages "
+"seront servies par rapport à ce préfixe. Par exemple, une page avec le "
+"chemin '/home' sera servie sous '/cms/home' si le préfixe est '/cms'."
+
+#: models.py:329
+msgid "search results template"
+msgstr "gabarit des résultats de recherche"
+
+#: models.py:329
+msgid "The template used for displaying search results."
+msgstr "Le gabarit utilisé pour afficher les résultats des recherches."
+
+#: models.py:335
+msgid "site configuration"
+msgstr "configuration de site"
+
+#: models.py:336
+msgid "sites configuration"
+msgstr "configurations de sites"
+
+#: templates/flexipages/defaults/pages/search_results.html:13
+#, python-format
+msgid "Results for %(to_search)s"
+msgstr "Résultats pour %(to_search)s"
+
+#: templates/flexipages/defaults/pages/search_results.html:21
+msgid "Found in:"
+msgstr "Trouvé dans :"
+
+#: templates/flexipages/defaults/pages/search_results.html:29
+msgid "Preview:"
+msgstr "Aperçu :"
+
+#: templates/flexipages/defaults/pages/search_results.html:36
+msgid "No results found."
+msgstr "Aucun résultat trouvé."
+
+#: templates/flexipages/edition/item_toolbar.html:11
+msgid "Move this item up"
+msgstr "Déplacer cet élément vers le haut"
+
+#: templates/flexipages/edition/item_toolbar.html:19
+msgid "Move this item down"
+msgstr "Déplacer cet élément vers le bas"
+
+#: templates/flexipages/edition/item_toolbar.html:24
+msgid "Edit this item..."
+msgstr "Éditer cette élément..."
+
+#: templates/flexipages/edition/item_toolbar.html:27
+msgid "Edit layout for this item..."
+msgstr "Éditer la mise en page de cet élément..."
+
+#: templates/flexipages/edition/item_toolbar.html:30
+msgid "Delete this item..."
+msgstr "Supprimer cet élément..."
+
+#: templates/flexipages/edition/item_toolbar.html:33
+msgid "Layout:"
+msgstr "Mise en page :"
+
+#: templates/flexipages/edition/item_toolbar.html:34
+msgid "Published:"
+msgstr "Publication :"
+
+#: templates/flexipages/edition/item_toolbar.html:34
+msgctxt "from date"
+msgid "from"
+msgstr "du"
+
+#: templates/flexipages/edition/item_toolbar.html:34
+msgctxt "to date"
+msgid "to"
+msgstr "au"
+
+#: templates/flexipages/edition/item_toolbar.html:35
+msgid "Author:"
+msgstr "Auteur :"
+
+#: templates/flexipages/edition/item_toolbar.html:36
+msgid "Last edited:"
+msgstr "Dernière édition :"
+
+#: templates/flexipages/edition/page_toolbar.html:7
+msgid "Reload this page to get the latest edited contents"
+msgstr "Recharger cette page pour obtenir les derniers contenus édités"
+
+#: templates/flexipages/edition/page_toolbar.html:13
+msgid "Created:"
+msgstr "Création :"
+
+#: templates/flexipages/edition/page_toolbar.html:13
+msgid "updated:"
+msgstr "mise à jour :"
+
+#: templates/flexipages/edition/page_toolbar.html:18
+msgid "Add new item to this page"
+msgstr "Ajouter un nouvel élément à cette page"
+
+#: templates/flexipages/edition/page_toolbar.html:21
+msgid "Edit this page..."
+msgstr "Éditer cette page..."
+
+#: templates/flexipages/edition/page_toolbar.html:24
+msgid "Edit template of this page..."
+msgstr "Éditer le gabarit de cette page..."
+
+#: templates/flexipages/edition/page_toolbar.html:27
+msgid "Delete this page..."
+msgstr "Supprimer cette page..."
+
+#: templates/flexipages/edition/page_toolbar.html:30
+msgid "Add a new page..."
+msgstr "Ajouter une nouvelle page..."
+
+#: templates/flexipages/edition/page_toolbar.html:32
+msgid "Go to FlexiPages admin"
+msgstr "Aller à l'administration de FlexiPages"
+
+#: templates/flexipages/edition/page_toolbar.html:33
+msgid "Deactivate editing mode"
+msgstr "Désactiver le mode d'édition"
+
+#: templates/flexipages/edition/page_toolbar.html:36
+msgid "Activate editing mode"
+msgstr "Activer le mode d'édition"
+
+#: views.py:231
+msgid "Any tag"
+msgstr "N'importe quelle étiquette"
+
+#~ msgid "The page content."
+#~ msgstr "Le contenu de page."
+
+#~ msgid "page content"
+#~ msgstr "contenu de page"
+
+#~ msgid "page contents"
+#~ msgstr "contenus de page"
+
+#~ msgid "Edit this content..."
+#~ msgstr "Éditer ce contenu..."
+
+#~ msgid "Delete this content..."
+#~ msgstr "Supprimer ce contenu..."
+
+#~ msgid "tags "
+#~ msgstr "étiquettes"

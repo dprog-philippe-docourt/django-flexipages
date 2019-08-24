@@ -1,0 +1,42 @@
+{% extends 'flexipages/pages/base.html' %}
+{% load i18n %}
+{% block extra_inline_css %}
+    {{ block.super }}
+    .contents-match {
+        font-weight: bold;
+        color: red;
+    }
+{% endblock %}
+{% block content %}
+    {% block search_results %}
+        {% if to_search %}
+            <h2>{% blocktrans %}Results for {{ to_search }}{% endblocktrans %}</h2>
+            <ul>
+                {% for result in search_results %}
+                    {% block search_result %}
+                        <li>
+                            <p>{{ result.match }}</p>
+                            <ul>
+                                <li>
+                                    {% trans "Found in:" %}
+                                    {% for page in result.pages %}
+                                        {% if not forloop.first %}&nbsp;|&nbsp;{% endif %}
+                                        <a href="{{ base_url }}{{ page.get_absolute_url }}#item_{{ result.item.id }}">{{ page.title }}</a>
+                                    {% endfor %}
+                                </li>
+                                <li>
+                                    {% if result.item.title %}<h3>{{ result.item.title }}</h3>{% endif %}
+                                    {% trans "Preview:" %}{{ result.item.render|truncatewords_html:60 }}
+                                </li>
+                            </ul>
+                        </li>
+                    {% endblock %}
+                {% empty %}
+                        {% block no_results %}
+                            <li>{% trans "No results found." %}</li>
+                        {% endblock %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endblock %}
+{% endblock %}
