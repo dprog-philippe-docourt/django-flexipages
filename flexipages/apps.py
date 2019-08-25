@@ -43,7 +43,7 @@ def create_flexipages_default_root_page(verbosity, using=DEFAULT_DB_ALIAS, apps=
     if not (router.allow_migrate_model(using, Page) and router.allow_migrate_model(using, PageItem) and router.allow_migrate_model(using, PageItemLayout) and router.allow_migrate_model(using, PageTemplate)):
         return
     template = get_default_base_template_for_page(PageTemplate)
-    page, created = Page.objects.get_or_create(path='/', defaults=dict(template=template, priority=0, title='FlexiPages Home'))
+    page, created = Page.objects.get_or_create(path='/', defaults=dict(template=template, priority=0, title='Home'))
     if created:
         default_site = Site.objects.first()
         page.sites.add(default_site)

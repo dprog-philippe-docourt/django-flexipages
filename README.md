@@ -75,6 +75,7 @@ Once the development environment is setup, start the development server:
 Once you have a running server:
 * login into the admin by opening you browser at http://localhost:8000/admin/ (use the same login as the one provided to the `createsuperuser` command above)
 * edit the default site by navigating to http://localhost:8000/admin/sites/site/1/change/, replacing the domain name with `localhost:8000`, and saving the modification 
+* check that everything is working by visiting the default root page http://localhost:8000, which is created when applying the migrations for django-flexipages for the first time
 
 ### Create your Very First Page
 Once you have a running server:
@@ -155,4 +156,26 @@ FLEXIPAGES_CACHES = {
 }
 CACHES.update(FLEXIPAGES_CACHES)
 FLEXIPAGES_PAGES_CACHE_ALIAS = 'flexipages'
+```
+
+In order to catch any path with *FlexiPages*, add `path('', include('flexipages.urls'))` to you root 'urls.py' which could look like this:
+```python
+from django.conf.urls import include
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('flexipages.urls')),
+]
+```
+
+The `admin.site.urls` are mandatory, but you may use an alternative admin site ([see doc](https://docs.djangoproject.com/en/2.2/ref/contrib/admin/#multiple-admin-sites-in-the-same-urlconf)). Please take care of putting the catch-all pattern for *FlexiPages* URLs at the very end of `urlpatterns`.
+
+You may use a path prefix for pages managed by *FlexiPages*:
+```python
+urlpatterns = [
+    # ...
+    path('flexipages', include('flexipages.urls')),
+]
 ```
