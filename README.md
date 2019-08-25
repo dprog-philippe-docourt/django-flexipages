@@ -10,6 +10,7 @@ This tool was developed to overcome the limitations of the Django flatpages fram
 
 As a simple CMS tool it provides a mean to manipulate blocks of contents that you can arrange the way you want on each page, with the following features:
 * built-in support of text search on any static contents
+* built-in support for easy, customizable server side caching
 * implicit hierarchy of pages according to the SEO-friendly path you give to each of your page
 * ability to layout each page with as many zones (group of contents) as you want
 * WYSIWYG editor for contents (can be turned off in case you need special raw HTML)
@@ -81,7 +82,7 @@ Once you have a running server:
 * navigate to http://localhost:8000/admin/flexipages/page/add/ to create your very first page
 * add a new page (use the `flexipages/pages/base.html` template for now)
 * visit the page at http://localhost:8000/<you/page/to/path/>
-* click the button `Activate editing mode` at the bottom right of the page to start adding items to your page 
+* click the button `Activate editing mode` at the bottom right of the page to start editing and adding items to your page 
 
 ### Django Settings
 Please have a close look at the django settings examples in `sites\settings.py` and `sites\local_dev\settings.py`. Here are the interesting bits of the provided example:
