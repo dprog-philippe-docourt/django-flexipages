@@ -1,6 +1,7 @@
 # django-flexipages
 A minimalist CMS that gives an enhanced alternative to the Django flatpages app.
 
+![alt text](docs/assets/flexipages_inline_editing_mode.png "Inline editing mode for static page")
 
 ## Features
 
@@ -58,13 +59,14 @@ Once the development environment is setup, start the development server:
 
 ### Setting up the Domain of the Default Site to localhost
 Once you have a running server:
-* login into the admin by opening you browser at [http://localhost:8000/admin/] (use the same login as the one provided to the `createsuperuser` command above)
-* edit the default site by navigating to [http://localhost:8000/admin/sites/site/1/change/], replacing the domain name with `localhost:8000`, and saving the modification 
+* login into the admin by opening you browser at http://localhost:8000/admin/ (use the same login as the one provided to the `createsuperuser` command above)
+* edit the default site by navigating to http://localhost:8000/admin/sites/site/1/change/, replacing the domain name with `localhost:8000`, and saving the modification 
 
 
 ### Create your Very First Page
-* login into the admin by opening you browser at [http://localhost:8000/admin/] (use the same login as the one provided to the `createsuperuser` command above)
-* navigate to [http://localhost:8000/admin/flexipages/page/add/] to create your very first page
+Once you have a running server:
+* login into the admin by opening you browser at http://localhost:8000/admin/ (use the same login as the one provided to the `createsuperuser` command above)
+* navigate to http://localhost:8000/admin/flexipages/page/add/ to create your very first page
 * add a new page (use the `flexipages/pages/base.html` template for now)
 * visit the page at http://localhost:8000/<you/page/to/path/>
 * click the button `Activate editing mode` at the bottom right of the page to start adding items to your page 
