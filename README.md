@@ -3,20 +3,24 @@ A minimalist CMS that gives an enhanced alternative to the Django flatpages app.
 
 ![alt text](docs/assets/flexipages_inline_editing_mode.png "Inline editing mode for static page")
 
+This tool was developed to overcome the limitations of the Django flatpages framework that makes it often unusable even for small static websites.
+
+
 ## Features
 
 As a simple CMS tool it provides a mean to manipulate blocks of contents that you can arrange the way you want on each page, with the following features:
 * built-in support of text search on any static contents
-* automatic sitemap
 * implicit hierarchy of pages according to the SEO-friendly path you give to each of your page
 * ability to layout each page with as many zones (group of contents) as you want
+* WYSIWYG editor for contents (can be turned off in case you need special raw HTML)
+* ability to use Django templating engine to render each contents (whenever some basic logic is required or when JavaScript output is desired).
+* syntax highlighting for Django templates
+* management of start/end date of publishing for each contents
+* automatic sitemap
 * uses the Django admin app to edit pages and their contents, but also provides some editing tools to move blocks of content around on a page
 * each page item (=block of contents) can be tagged
 * each page can be tagged (used for keywords meta in HTML)
 * each block of contents can be published on many pages
-* WYSIWYG editor for contents (can be turned off in case you need special raw HTML)
-* ability to use Django templating engine to render each contents (whenever some basic logic is required).
-* management of start/end date of publishing for each contents
 * allows creation of pages that requires an authentication
 * tools for managing menus to navigate the hierarchy of pages
 * dead simple management of editing rights: contents editors, site admin and site designer
@@ -26,22 +30,31 @@ As a simple CMS tool it provides a mean to manipulate blocks of contents that yo
 * no limit to site design: you are in full control of the template of each page
 * 100% clean HTML, no special CSS classes or HTML tags required
 * page templating system based on Django template engine that includes inheritance and inclusion mechanisms for minimum duplication of HTML code
-* management of template layout based on type of device (desktop, tablet or smartphone)
+* ability to manage several site layouts based on type of device (desktop, tablet or smartphone)
+* per site configuration options 
 
-A specificity of this minimalist CMS lies in the fact that the blocks of contents have no structure. All blocks are structurally equal, whatever they represent: the content is always a simple string.
-There are no special blocks for inserting video, image, collection of objects, etc. You need a special formatting for all your videos? Make blocks with the video URL as the only content instead of an HTML <video> tag, and then use a template to render those blocks.
+A specificity of this minimalist CMS lies in the fact that the blocks of contents have no structure.
+All blocks are structurally equal, whatever they represent: the content is always a simple string.
+This string however can be interpreted and rendered in different fashions.
+There are no special blocks for inserting video, image, collection of objects, etc.
+You need a special formatting for a collection of videos? Make blocks with the video URL as the only content instead of an HTML &lt;video&gt; tag, and then use a dedicated template fragment to adequately render those blocks.
 
 The following features are on their way:
 * automatic RSS feeds
 * contact form
 * pagination of blocks of contents
+* ability to interpret page item content as JSON
+* ability to interpret page item content as reStructuredText
+* ability to interpret page item content as Markdown
+* ability to inject dynamic context (via API calls) to any rendered page in order to insert dynamic contents into a static page
 
 
 ## Disclaimer
 
-This tool was developed to overcome the limitations of the Django flatpages framework that makes it often unusable even for small static websites.
-
-If you are looking for a full featured CMS, FlexiPages is not for you! That said, if you have a small or large number of static pages whose contents needs to be fully searchable, or you need a tool that ease inline editing of static contents you might have found what you were looking for.
+*FlexiPages* is in alpha stage. As such its API as well as its DB schema could radically change without notice.
+ 
+If you are looking for a full featured CMS with complex permission management, strict data structure definitions, and others bells and whistles, *FlexiPages* is not for you!
+That said, if you have a small or large number of static pages whose contents needs to be fully searchable, or you need a tool that ease inline editing of static contents you might have found what you were looking for.
 
 
 ## Getting Started
@@ -62,7 +75,6 @@ Once you have a running server:
 * login into the admin by opening you browser at http://localhost:8000/admin/ (use the same login as the one provided to the `createsuperuser` command above)
 * edit the default site by navigating to http://localhost:8000/admin/sites/site/1/change/, replacing the domain name with `localhost:8000`, and saving the modification 
 
-
 ### Create your Very First Page
 Once you have a running server:
 * login into the admin by opening you browser at http://localhost:8000/admin/ (use the same login as the one provided to the `createsuperuser` command above)
@@ -70,7 +82,6 @@ Once you have a running server:
 * add a new page (use the `flexipages/pages/base.html` template for now)
 * visit the page at http://localhost:8000/<you/page/to/path/>
 * click the button `Activate editing mode` at the bottom right of the page to start adding items to your page 
-
 
 ### Django Settings
 Please have a close look at the django settings examples in `sites\settings.py` and `sites\local_dev\settings.py`. Here are the interesting bits of the provided example:
