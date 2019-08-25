@@ -23,7 +23,7 @@ from flexipages.utils import get_current_site_and_config, get_base_url_for_page,
     patch_response_for_inline_editing, get_formatted_match
 
 
-def cms_page(request, path):
+def flexipages_page(request, path):
     """
     Public interface to the minimal cms page view.
     """
@@ -57,11 +57,11 @@ def cms_page(request, path):
     # Attach site configuration to page to render.
     setattr(page, 'site_config', site_config)
 
-    return render_cms_page(request, page)
+    return render_page(request, page)
 
 
 @csrf_protect
-def render_cms_page(request, page):
+def render_page(request, page):
     """
     Internal interface to the page view.
     """
