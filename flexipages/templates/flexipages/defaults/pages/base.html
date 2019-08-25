@@ -12,9 +12,9 @@
             #page_id {
                 padding: 10px 50px;
             }
-            .rounded-grey-background {
-                padding-left: 10px;
-                padding-right: 10px;
+            .rounded-colored-background {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
                 border-radius: 3px;
                 background-color: lightblue;
             }
@@ -50,9 +50,9 @@
 {% block page_container %}
     <div id="page_id">
         {% block header %}
-            <h1>FlexiPages</h1>
+            <h1>FlexiPages Default Template</h1>
         {% endblock %}
-        <div class="flex-container rounded-grey-background">
+        <div class="flex-container rounded-colored-background">
             <div>
                 {% block breadcrumbs_menu %}
                     {% include 'flexipages/menus/breadcrumbs.html' %}

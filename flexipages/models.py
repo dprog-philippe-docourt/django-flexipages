@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _, ugettext
 
 from stringrenderer import StringTemplateRenderer, check_template_syntax
 from flexipages.cache import delete_cache_for_page
-from flexipages.constants import EDITION_CONTEXT_ATTRIBUTE_NAME, PAGE_CACHE_DURATIONS
+from flexipages.constants import EDITION_CONTEXT_ATTRIBUTE_NAME, PAGE_CACHE_DURATIONS, IS_EDITING_ATTRIBUTE_NAME
 
 PAGE_CACHE_DURATIONS_CHOICES = (
     (PAGE_CACHE_DURATIONS.none, _("no caching")),
@@ -271,7 +271,7 @@ class PageItem(models.Model):
         rendered_content = '<a id="item_%s"></a>%s' % (self.pk, rendered_content)
         rendered_content = mark_safe(rendered_content)
         edition_context = getattr(self, EDITION_CONTEXT_ATTRIBUTE_NAME, None)
-        if edition_context:
+        if edition_context and edition_context.get(IS_EDITING_ATTRIBUTE_NAME, False):
             django_engine = engines['django']
             template = django_engine.get_template('flexipages/edition/item_toolbar.html')
             rendered_content = template.render(context=dict(edition_context=edition_context, item=self, rendered_content=rendered_content))
