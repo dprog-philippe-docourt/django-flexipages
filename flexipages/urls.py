@@ -14,4 +14,5 @@ urlpatterns = [
     path(SEARCH_RESULTS_PATH, views.search_results, name='search_results'),
     path('ajax/get_last_page_update/', views.ajax_get_last_page_update, name='ajax_get_last_page_update'),
     path('<path:path>', views.cms_page),
+    path('', views.cms_page, kwargs=dict(path='')),
 ]
