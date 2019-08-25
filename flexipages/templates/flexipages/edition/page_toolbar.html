@@ -14,7 +14,7 @@
     </div>
     <div class="right menu">
     {% if edition_context.is_editing %}
-        {% if edition_context.can_edit_item %}
+        {% if edition_context.can_edit_content %}
             <a class="ui item" onclick="document.getElementById('add_item_form').submit();return false;" target="_blank" title="{% trans "Add new item to this page" %}"><i class="ui plus icon"></i></a>
         {% endif %}
         {% if edition_context.can_edit_page %}
