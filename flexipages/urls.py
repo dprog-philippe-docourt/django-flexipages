@@ -13,6 +13,6 @@ urlpatterns = [
     path('swap_content_<int:first_item_pk>_with_<int:second_item_pk>_on_page_<int:page_pk>/', views.swap_item_positions, name='swap_item_positions'),
     path(SEARCH_RESULTS_PATH, views.search_results, name='search_results'),
     path('ajax/get_last_page_update/', views.ajax_get_last_page_update, name='ajax_get_last_page_update'),
-    path('<path:path>', views.cms_page),
-    path('', views.cms_page, kwargs=dict(path='')),
+    path('<path:path>', views.flexipages_page),
+    path('', views.flexipages_page, kwargs=dict(path='')),
 ]
