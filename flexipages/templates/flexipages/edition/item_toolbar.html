@@ -30,10 +30,12 @@
         <a href="{% url 'admin:flexipages_pageitem_delete' item.pk %}" title="{% trans "Delete this item..." %}" target="_blank" class="ui basic mini icon button" onclick="openUrlInPopup(this.href);return false;"><i class="ui delete icon"></i></a>
     </div>
     <div class="right menu">
-        <div class="ui item">{% trans "Layout:" %} {{ item.layout.zone_name|default:"n/a" }}, {{ item.layout.order|default:"n/a" }} ({{ item.item_index }}/{{ item.item_count }})</div>
         <div class="ui item">{% trans "Published:" %} {% trans "from" context "from date" %} {{ item.publishing_start_date|default:"n/a" }} {% trans "to" context "to date" %} {{ item.publishing_end_date|default:"n/a" }}</div>
         <div class="ui item">{% trans "Author:" %} {{ item.author|default:"n/a" }}, {{ item.created }}</div>
         <div class="ui item">{% trans "Last edited:" %} {{ item.last_edited_by|default:"n/a" }}, {{ item.last_updated }}</div>
+        <div class="ui item">{% trans "Type:" %} {{ item.get_content_rendering_mode_display }}</div>
+        {% trans "no zone" as no_zone %}{% trans "anti-chronogical" as no_order %}
+        <div class="ui item">{% trans "Zone and ordering:" %} {{ item.layout.zone_name|default:no_zone }}, {{ item.layout.order|default:no_order }} ({{ item.item_index }}/{{ item.item_count }})</div>
     </div>
 </div>
 <div class="ui bottom attached {% if item.is_not_published_yet %}yellow {% elif item.is_no_longer_published %}red {% endif %}segment">

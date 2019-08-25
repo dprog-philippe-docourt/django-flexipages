@@ -11,4 +11,6 @@ SEMANTIC_UI_CSS_URL = "https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/seman
 
 PAGE_CACHE_DURATIONS = namedtuple("PAGE_CACHE_DURATIONS", "none one_minute five_minutes fifteen_minutes thirty_minutes one_hour three_hours six_hours twelve_hours one_day three_days one_week two_weeks one_month")._make(range(14))
 
+CONTENT_RENDERING_MODE = namedtuple("CONTENT_RENDERING_MODE", "html django_template markdown json javascript")._make(range(1, 6))
+
 SEARCH_RESULTS_PATH = 'search/'

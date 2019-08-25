@@ -1,3 +1,7 @@
+import json
+from json import JSONDecodeError
+
+import markdown2
 from dbtemplates import models as dbtemplates_models
 from dbtemplates.utils.cache import remove_cached_template
 from django.contrib.auth.models import User
@@ -11,12 +15,14 @@ from django.template.defaultfilters import striptags, truncatewords_html
 from django.urls import get_script_prefix
 from django.utils import timezone
 from django.utils.encoding import iri_to_uri
+from django.utils.html import format_html, json_script
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, ugettext
 
 from stringrenderer import StringTemplateRenderer, check_template_syntax
 from flexipages.cache import delete_cache_for_page
-from flexipages.constants import EDITION_CONTEXT_ATTRIBUTE_NAME, PAGE_CACHE_DURATIONS, IS_EDITING_ATTRIBUTE_NAME
+from flexipages.constants import EDITION_CONTEXT_ATTRIBUTE_NAME, PAGE_CACHE_DURATIONS, IS_EDITING_ATTRIBUTE_NAME, \
+    CONTENT_RENDERING_MODE, SEARCH_RESULTS_PATH
 
 PAGE_CACHE_DURATIONS_CHOICES = (
     (PAGE_CACHE_DURATIONS.none, _("no caching")),
@@ -109,6 +115,15 @@ class Page(models.Model):
 
     def __str__(self):
         return "%s -- %s" % (self.path, self.title)
+
+    def clean(self):
+        if self.path.strip('/') == SEARCH_RESULTS_PATH.strip('/'):
+            raise ValidationError(
+                '%s %s' % (
+                    ugettext("The 'search' path is reserved for search results."),
+                    ugettext("Please use another path for your page.")
+                ))
+
 
     def save(self, *args, **kwargs):
         # Adjust page level according to path.
@@ -213,6 +228,13 @@ class PageItemManager(models.Manager):
 
 
 class PageItem(models.Model):
+    CONTENT_RENDERING_MODE_CHOICES = (
+        (CONTENT_RENDERING_MODE.html, 'HTML'),
+        (CONTENT_RENDERING_MODE.django_template, 'Django Template'),
+        (CONTENT_RENDERING_MODE.markdown, 'Markdown'),
+        (CONTENT_RENDERING_MODE.json, 'JSON'),
+        (CONTENT_RENDERING_MODE.javascript, 'JavaScript'),
+    )
     objects = PageItemManager()
     content = models.TextField(null=False, blank=False, editable=True, verbose_name=_('content'), max_length=1e6, help_text=_("The content of this item."))
     description = models.CharField(_('description'), max_length=256, blank=True, help_text=_("Short description of this content"))
@@ -220,7 +242,7 @@ class PageItem(models.Model):
     tags = models.ManyToManyField(Tag, verbose_name=_('tags'), blank=True)
     publishing_start_date = models.DateField(_('publishing start date'), default=None, blank=True, null=True, help_text=_("Indicates when this item must be published. A blank field means that this content is unpublished and therefore not displayed anywhere."))
     publishing_end_date = models.DateField(_('publishing end date'), default=None, blank=True, null=True, help_text=_("Indicates when the publication of this content should be over. A blank field means that this content will by available forever."))
-    render_content_as_template = models.BooleanField(_('render content as template'), default=False, help_text=_("Indicates whether the content is interpreted and rendered as a Django template. The content is interpreted as raw HTML when disabled."))
+    content_rendering_mode = models.PositiveSmallIntegerField(_('content rendering mode'), choices=CONTENT_RENDERING_MODE_CHOICES, default=CONTENT_RENDERING_MODE.html, help_text=_("Indicates whether the content is interpreted and rendered as a Django template, raw HTML, Markdown, etc."))
     use_wysiwyg_editor = models.BooleanField(_('use WYSIWYG editor'), default=True, help_text=_("Indicates whether the content should be rendered with a WYSIWYG editor for HTML."))
     author = models.ForeignKey(User, verbose_name=_('author'), related_name='authors_items', null=True, on_delete=models.SET_NULL, blank=True, help_text=_("The author of this item."))
     last_edited_by = models.ForeignKey(User, verbose_name=_('last edited by'), related_name='edited_items', null=True, on_delete=models.SET_NULL, blank=True, help_text=_("The edited items of the author."))
@@ -231,15 +253,28 @@ class PageItem(models.Model):
         return (self.title or self.description) or '%s %i' % (self._meta.verbose_name, self.pk)
 
     def clean(self):
-        if self.render_content_as_template:
+        if self.content_rendering_mode == CONTENT_RENDERING_MODE.django_template:
             valid, error = check_template_syntax(self.content)
             if not valid:
                 raise ValidationError(
                     '%s %s %s' % (
                         ugettext("The given content cannot be interpreted and rendered as a template."),
                         error,
-                        ugettext("Please correct the syntax or deactivate the option for rendering the content as a template.")
+                        ugettext("Please correct the syntax or change the option for rendering the content as a template.")
                     ))
+        elif self.content_rendering_mode == CONTENT_RENDERING_MODE.json:
+            try:
+                json.loads(self.content)
+            except JSONDecodeError as e:
+                raise ValidationError(
+                    '%s %s. %s' % (
+                        ugettext("The given content is not valid JSON data."),
+                        e.args[0],
+                        ugettext(
+                            "Please correct the syntax or change the option for interpreting the content as JSON.")
+                    ))
+        if self.use_wysiwyg_editor and self.content_rendering_mode not in (CONTENT_RENDERING_MODE.html, CONTENT_RENDERING_MODE.django_template):
+            raise ValidationError(ugettext("The WYSIWYG editor is only available for HTML and Django Template rendering."))
 
     def save(self, *args, **kwargs):
         if not self.description:
@@ -260,14 +295,28 @@ class PageItem(models.Model):
             delete_cache_for_page(page)
 
     def render(self):
-        if self.render_content_as_template:
+        if self.content_rendering_mode == CONTENT_RENDERING_MODE.html:
+            # Rendered content is equal to content when rendering is set to HTML.
+            rendered_content = self.content
+        elif self.content_rendering_mode == CONTENT_RENDERING_MODE.django_template:
             # Build renderer if needed.
             if not hasattr(self, '_renderer'):
                 setattr(self, '_renderer', StringTemplateRenderer(self.content, extra_tags=['flexipages']))
             rendered_content = self._renderer.render_template(context=dict(item=self))
+        elif self.content_rendering_mode == CONTENT_RENDERING_MODE.markdown:
+            rendered_content = mark_safe(markdown2.markdown(self.content, extras=["header-ids", "tables", "fenced-code-blocks"]))
+        elif self.content_rendering_mode == CONTENT_RENDERING_MODE.json:
+            try:
+                json_data = json.loads(self.content)
+            except JSONDecodeError as e:
+                json_data = dict(error=str(e))
+                pass
+            # Render as script tag containing escaped JSON data.
+            rendered_content = json_script(json_data, 'content_data_%i' % self.pk)
+        elif self.content_rendering_mode == CONTENT_RENDERING_MODE.javascript:
+            rendered_content = format_html('<script>{}</script>', self.content)
         else:
-            # Rendered content is equal to content when no template is given.
-            rendered_content = self.content
+            raise ValueError("Unknown rendering mode.")
         rendered_content = '<a id="item_%s"></a>%s' % (self.pk, rendered_content)
         rendered_content = mark_safe(rendered_content)
         edition_context = getattr(self, EDITION_CONTEXT_ATTRIBUTE_NAME, None)

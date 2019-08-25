@@ -65,29 +65,32 @@ class PageItemForm(ModelForm):
         super().__init__(*args, **kwargs)
         if self.instance.use_wysiwyg_editor:
             self.fields['content'].widget = CKEditorWidget()
-        elif self.instance.render_content_as_template:
-            self.fields['content'].widget = djangocodemirror.widgets.CodeMirrorAdminWidget(config_name="django")
-        else:
+        elif self.instance.content_rendering_mode == CONTENT_RENDERING_MODE.html:
             self.fields['content'].widget = djangocodemirror.widgets.CodeMirrorAdminWidget(config_name="html")
+        elif self.instance.content_rendering_mode == CONTENT_RENDERING_MODE.django_template:
+            self.fields['content'].widget = djangocodemirror.widgets.CodeMirrorAdminWidget(config_name="django")
+        elif self.instance.content_rendering_mode == CONTENT_RENDERING_MODE.markdown:
+            self.fields['content'].widget = djangocodemirror.widgets.CodeMirrorAdminWidget(config_name="markdown")
+        elif self.instance.content_rendering_mode == CONTENT_RENDERING_MODE.json:
+            self.fields['content'].widget = djangocodemirror.widgets.CodeMirrorAdminWidget(config_name="json")
+        elif self.instance.content_rendering_mode == CONTENT_RENDERING_MODE.javascript:
+            self.fields['content'].widget = djangocodemirror.widgets.CodeMirrorAdminWidget(config_name="json")
 
 
 class PageItemAdmin(admin.ModelAdmin):
     save_on_top = True
     inlines = (ItemLayoutInline,)
     form = PageItemForm
-    list_display = ['__str__', 'title', 'publishing_start_date', 'publishing_end_date', 'render_content_as_template']
-    list_editable = ['title', 'publishing_start_date', 'publishing_end_date', 'render_content_as_template']
+    list_display = ['__str__', 'title', 'publishing_start_date', 'publishing_end_date', 'content_rendering_mode']
+    list_editable = ['title', 'publishing_start_date', 'publishing_end_date', 'content_rendering_mode']
     search_fields = ['content', 'title', 'tags__name']
-    list_filter = ['tags', 'render_content_as_template', 'use_wysiwyg_editor', ('author', admin.RelatedOnlyFieldListFilter), ('last_edited_by', admin.RelatedOnlyFieldListFilter)]
+    list_filter = ['tags', 'content_rendering_mode', 'use_wysiwyg_editor', ('author', admin.RelatedOnlyFieldListFilter), ('last_edited_by', admin.RelatedOnlyFieldListFilter)]
     date_hierarchy = 'created'
     readonly_fields = ['created', 'last_updated', 'last_edited_by']
     filter_horizontal = ['tags']
     fieldsets = (
-        (None, {
-            'fields': ('content', ),
-        }),
-        (_('Rendering and interpretation'), {
-            'fields': (('render_content_as_template', 'use_wysiwyg_editor'),),
+        (_('Content, rendering and interpretation'), {
+            'fields': (('content_rendering_mode', 'use_wysiwyg_editor'), 'content'),
         }),
         (_('Publishing'), {
             'fields': (('publishing_start_date', 'publishing_end_date'),),

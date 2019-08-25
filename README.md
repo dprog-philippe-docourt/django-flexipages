@@ -11,10 +11,10 @@ This tool was developed to overcome the limitations of the Django flatpages fram
 As a simple CMS tool it provides a mean to manipulate blocks of contents that you can arrange the way you want on each page, with the following features:
 * built-in support of text search on any static contents
 * built-in support for easy, customizable server side caching
-* implicit hierarchy of pages according to the SEO-friendly path you give to each of your page
+* implicit hierarchy of pages according to the SEO-friendly path you give to each of your pages
 * ability to layout each page with as many zones (group of contents) as you want
 * WYSIWYG editor for contents (can be turned off in case you need special raw HTML)
-* ability to use Django templating engine to render each contents (whenever some basic logic is required or when JavaScript output is desired).
+* ability to use Django templating engine, Markdown, or JavaScript to render each contents
 * syntax highlighting for Django templates
 * management of start/end date of publishing for each contents
 * automatic sitemap
@@ -36,7 +36,7 @@ As a simple CMS tool it provides a mean to manipulate blocks of contents that yo
 
 A specificity of this minimalist CMS lies in the fact that the blocks of contents have no structure.
 All blocks are structurally equal, whatever they represent: the content is always a simple string.
-This string however can be interpreted and rendered in different fashions.
+This string however can be interpreted and rendered in different fashions: HTML, Django template, Markdown (with most GitHub extensions), JavaScript.
 There are no special blocks for inserting video, image, collection of objects, etc.
 You need a special formatting for a collection of videos? Make blocks with the video URL as the only content instead of an HTML &lt;video&gt; tag, and then use a dedicated template fragment to adequately render those blocks.
 
@@ -44,9 +44,6 @@ The following features are on their way:
 * automatic RSS feeds
 * contact form
 * pagination of blocks of contents
-* ability to interpret page item content as JSON
-* ability to interpret page item content as reStructuredText
-* ability to interpret page item content as Markdown
 * ability to inject dynamic context (via API calls) to any rendered page in order to insert dynamic contents into a static page
 
 
@@ -75,7 +72,7 @@ Once the development environment is setup, start the development server:
 Once you have a running server:
 * login into the admin by opening you browser at http://localhost:8000/admin/ (use the same login as the one provided to the `createsuperuser` command above)
 * edit the default site by navigating to http://localhost:8000/admin/sites/site/1/change/, replacing the domain name with `localhost:8000`, and saving the modification 
-* check that everything is working by visiting the default root page http://localhost:8000, which is created when applying the migrations for django-flexipages for the first time
+* check that everything is working by visiting the default root page http://localhost:8000, which is created when applying the migrations for *django-flexipages* for the first time
 
 ### Create your Very First Page
 Once you have a running server:

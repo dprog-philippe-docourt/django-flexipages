@@ -3,7 +3,8 @@ from django.db import router, DEFAULT_DB_ALIAS
 from django.db.models.signals import post_migrate
 from django.utils import timezone
 
-from flexipages.constants import FLEXIPAGES_EDITOR_GROUP_NAME, FLEXIPAGES_ADMIN_GROUP_NAME, FLEXIPAGES_SITE_DESIGNER_GROUP_NAME
+from flexipages.constants import FLEXIPAGES_EDITOR_GROUP_NAME, FLEXIPAGES_ADMIN_GROUP_NAME, \
+    FLEXIPAGES_SITE_DESIGNER_GROUP_NAME, CONTENT_RENDERING_MODE
 from flexipages.utils import setup_default_templates, get_default_base_template_for_page
 
 
@@ -54,7 +55,7 @@ def create_flexipages_default_root_page(verbosity, using=DEFAULT_DB_ALIAS, apps=
         page_item = PageItem.objects.create(publishing_start_date=today, content=content)
         PageItemLayout.objects.create(page=page, item=page_item, priority=0)
         page_item = PageItem.objects.create(publishing_start_date=today,
-                                            content="""<h2>Example of Page Item</h2><p>{% lorem %}</p>""", render_content_as_template=True, use_wysiwyg_editor=False)
+                                            content="""<h2>Example of Page Item</h2><p>{% lorem %}</p>""", content_rendering_mode=CONTENT_RENDERING_MODE.django_template, use_wysiwyg_editor=False)
         PageItemLayout.objects.create(page=page, item=page_item, priority=100)
 
 

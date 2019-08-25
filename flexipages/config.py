@@ -39,6 +39,35 @@ CKEDITOR_CONFIGS = {
 }
 
 # CodeMirror
+CODEMIRROR_MODES.update({
+    "markdown": "CodeMirror/mode/markdown/markdown.js",
+    "json": "CodeMirror/mode/javascript/javascript.js",
+})
+CODEMIRROR_SETTINGS.update({
+    'markdown': {
+        'mode': 'markdown',
+        'modes': ['htmlmixed', 'javascript', 'python', 'css', 'markdown'],
+        'addons': [
+            "CodeMirror/addon/mode/overlay.js",
+        ],
+    },
+    'json': {
+        'mode': 'javascript',
+        'json': True,
+        'modes': ['javascript'],
+        'extraKeys': {"Ctrl-Space": "autocomplete"},
+        'addons': [
+            "CodeMirror/addon/edit/matchbrackets.js",
+            "CodeMirror/addon/hint/show-hint.js",
+            "CodeMirror/addon/lint/json-lint.js",
+            "CodeMirror/addon/lint/lint.js",
+        ],
+        'extra_css': [
+            "CodeMirror/addon/hint/show-hint.css",
+            "CodeMirror/addon/lint/lint.css",
+        ],
+    },
+})
 
 # DB Templates
 
