@@ -28,12 +28,19 @@ def setup_default_templates(model, force_update):
             else:
                 manager.get_or_create(name=template_name, defaults=dict(content=content))
 
+    setup_from_file(path.join(base_dir, 'pages', 'base.html'))
+    setup_from_file(path.join(base_dir, 'pages', 'search_results.html'))
     setup_from_file(path.join(base_dir, 'components', 'tags_related_to_page.html'))
     setup_from_file(path.join(base_dir, 'components', 'item_tags.html'))
     setup_from_file(path.join(base_dir, 'components', 'search_form.html'))
     setup_from_file(path.join(base_dir, 'menus', 'breadcrumbs.html'))
-    setup_from_file(path.join(base_dir, 'pages', 'base.html'))
-    setup_from_file(path.join(base_dir, 'pages', 'search_results.html'))
+
+
+def get_default_base_template_for_page(page_template_model):
+    try:
+        return page_template_model.objects.get(name='flexipages/pages/base.html')
+    except (page_template_model.DoesNotExist, page_template_model.MultipleObjectsReturned):
+        pass
 
 
 def get_site_config(site):
