@@ -16,7 +16,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     include_package_data=True,
     python_requires='>=3.5',
-    install_requires=['django'],
+    install_requires=['django', 'django-string-renderer', 'django-ckeditor', 'djangocodemirror', 'markdown2', 'django-dbtemplates', 'rules', 'django-user-agents'],
     classifiers=[
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
@@ -25,7 +25,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Framework :: Django",
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 3 - Alpha",
         "Natural Language :: English"
     ],
     keywords='django cms static pages',

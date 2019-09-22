@@ -1,1 +1,4 @@
 django-debug-toolbar==2.0
+setuptools
+wheel
+twine
