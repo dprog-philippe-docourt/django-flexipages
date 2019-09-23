@@ -5,3 +5,4 @@ include *.md
 include LICENSE
 
 recursive-include flexipages/locale *.mo
+recursive-include flexipages/templates/flexipages/defaults/ *.html
